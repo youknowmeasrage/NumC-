@@ -1,0 +1,52 @@
+================================================================================
+                            IMPORTANT DISCLAIMER
+================================================================================
+
+NUMC++ LIBRARY - AUTHORSHIP AND ERRORS NOTICE
+
+CREDITS AND AUTHORSHIP:
+------------------------
+This library (Numc++) is a comprehensive C++ implementation of NumPy-like
+functionality for numerical computing.
+
+IMPORTANT:
+- Only approximately 20 core functions were manually written by the original
+  developer.
+- The remaining functions (approximately 200+) were generated using AI
+  assistance (prompted through Cursor) and may contain errors or limitations.
+
+ERROR REPORTING:
+----------------
+If you encounter any errors, bugs, or unexpected behavior, please report them to:
+    Email: sabhay@zohomail.in
+
+Include in your report:
+- Description of the error
+- Minimal code example that reproduces the issue
+- Expected behavior vs actual behavior
+- Operating system and compiler version
+
+LIMITATIONS:
+------------
+- Some functions may have incomplete or simplified implementations
+- Advanced features like FFT, SVD, and eigendecomposition have basic implementations
+- Bitwise operations are approximated using integer conversions
+- Complex number operations are not fully supported
+- Memory management is basic and may need optimization for large arrays
+
+USE AT YOUR OWN RISK:
+---------------------
+This library is provided as-is for educational and development purposes.
+No warranty is provided. Use at your own risk.
+
+CONTRIBUTIONS:
+--------------
+Contributions and improvements are welcome. Please report bugs or submit
+pull requests through the project repository.
+
+================================================================================
+                            END OF DISCLAIMER
+================================================================================
+
+
+

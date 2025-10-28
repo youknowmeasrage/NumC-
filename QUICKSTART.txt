@@ -1,0 +1,50 @@
+================================================================================
+                          NUMC++ QUICK START GUIDE
+================================================================================
+
+COMPILATION INSTRUCTIONS:
+-------------------------
+
+Method 1 - Using g++ directly:
+    
+    g++ -c Numc++.cpp -o Numc++.o -std=c++14
+    g++ your_program.cpp Numc++.o -o your_program -std=c++14
+    
+Method 2 - Using Makefile:
+    
+    make                (to build example)
+    make clean          (to remove object files)
+
+BASIC USAGE:
+------------
+
+#include "Numc++.h"
+using namespace numc;
+
+// Create arrays
+Array arr1 = Array::ones({3, 3});
+Array arr2 = Array::arange(1, 10, 1);
+
+// Operations
+Array result = arr1 + arr2;
+Array result2 = arr1 * 2.5;
+
+// Statistics
+double mean = arr2.mean();
+double max_val = arr2.max();
+
+// Mathematical functions
+Array squared = arr2.pow(2);
+Array sqrt_arr = arr2.sqrt();
+
+// Matrix operations
+Array I = Array::identity(3);
+Array transposed = I.transpose();
+Array product = arr1.dot(arr2);
+
+For detailed documentation, see README.txt
+
+================================================================================
+
+
+

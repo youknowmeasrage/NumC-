@@ -1,0 +1,333 @@
+================================================================================
+                    NUMC++ COMPREHENSIVE USAGE GUIDE
+================================================================================
+
+TABLE OF CONTENTS:
+==================
+1. Installation and Compilation
+2. Basic Usage
+3. Array Creation
+4. Array Operations
+5. Mathematical Functions
+6. Statistical Operations
+7. Linear Algebra
+8. Advanced Features
+9. Common Patterns
+10. Tips and Best Practices
+
+================================================================================
+1. INSTALLATION AND COMPILATION
+================================================================================
+
+Required: C++23 compatible compiler (g++ 13+, clang++ 16+, MSVC 19.33+)
+
+Method 1 - Using Make:
+    make                # Compile library
+    make clean          # Remove object files
+    ./example           # Run example
+
+Method 2 - Manual Compilation:
+    g++ -std=c++23 -c Numc++.cpp -o Numc++.o
+    g++ -std=c++23 your_program.cpp Numc++.o -o your_program
+
+Method 3 - Include in Your Project:
+    # Copy Numc++.h and Numc++.cpp to your project
+    # Include: #include "Numc++.h"
+    # Link with: g++ your_file.cpp Numc++.cpp -std=c++23
+
+================================================================================
+2. BASIC USAGE
+================================================================================
+
+Include the header and use the namespace:
+    #include "Numc++.h"
+    using namespace numc;
+
+Create arrays:
+    Array arr1 = Array::ones({3, 3});          // 3x3 matrix of ones
+    Array arr2 = Array::zeros({10});            // 1D array of zeros
+    Array arr3 = Array::arange(0, 10, 1);      // [0, 1, 2, ..., 9]
+
+Perform operations:
+    Array sum = arr1 + arr2;
+    Array prod = arr1 * 3.5;
+    double mean_val = arr3.mean();
+
+Print arrays:
+    arr1.print();                              // Print array contents
+    arr1.print_shape();                        // Print only shape
+
+================================================================================
+3. ARRAY CREATION
+================================================================================
+
+Initialization:
+    Array();                                    // Empty array
+    Array({3, 4});                             // 3x4 zeros array
+    Array({1,2,3,4}, {2,2});                  // From data and shape
+    Array({{1,2},{3,4}});                     // Initializer list
+
+Static Methods:
+    Array::zeros({rows, cols})                 // Fill with zeros
+    Array::ones({rows, cols})                  // Fill with ones
+    Array::full({rows, cols}, value)           // Fill with constant
+    Array::eye(n)                              // Identity matrix
+    Array::arange(start, end, step)            // Range of values
+    Array::linspace(start, end, num)           // Linear spacing
+    Array::logspace(start, end, num)          // Logarithmic spacing
+    Array::geomspace(start, end, num)          // Geometric spacing
+
+Random Arrays:
+    Array arr({100});
+    arr.random_uniform(0.0, 1.0);              // Uniform distribution
+    arr.random_normal(0.0, 1.0);               // Normal distribution
+
+================================================================================
+4. ARRAY OPERATIONS
+================================================================================
+
+Arithmetic (Element-wise):
+    Array c = a + b;                           // Addition
+    Array d = a - b;                           // Subtraction
+    Array e = a * b;                           // Multiplication
+    Array f = a / b;                           // Division
+
+Scalar Operations:
+    Array scaled = arr * 2.5;                  // Multiply by scalar
+    Array offset = arr + 10;                   // Add scalar
+    Array divided = arr / 3;                   // Divide by scalar
+
+In-place Operations:
+    arr += other_arr;                          // In-place addition
+    arr -= other_arr;                          // In-place subtraction
+    arr *= other_arr;                          // In-place multiplication
+    arr /= other_arr;                          // In-place division
+
+Comparison:
+    bool equal = arr1 == arr2;                 // Check equality
+    bool not_equal = arr1 != arr2;            // Check inequality
+
+Array Manipulation:
+    Array reshaped = arr.reshape({new_shape}); // Reshape array
+    Array transposed = arr.transpose();        // Transpose matrix
+    Array flattened = arr.flatten();          // Flatten to 1D
+    Array copied = arr.copy();                 // Create copy
+
+================================================================================
+5. MATHEMATICAL FUNCTIONS
+================================================================================
+
+Trigonometric Functions:
+    Array sin_arr = arr.sin();                 // Sine
+    Array cos_arr = arr.cos();                 // Cosine
+    Array tan_arr = arr.tan();                 // Tangent
+    Array asin_arr = arr.asin();               // Arc sine
+    Array acos_arr = arr.acos();               // Arc cosine
+    Array atan_arr = arr.atan();               // Arc tangent
+
+Hyperbolic Functions:
+    Array sinh_arr = arr.sinh();                // Hyperbolic sine
+    Array cosh_arr = arr.cosh();                // Hyperbolic cosine
+    Array tanh_arr = arr.tanh();                // Hyperbolic tangent
+
+Exponential and Logarithmic:
+    Array exp_arr = arr.exp();                 // e^x
+    Array log_arr = arr.log();                 // Natural log
+    Array log2_arr = arr.log2();               // Base-2 log
+    Array log10_arr = arr.log10();              // Base-10 log
+    Array sqrt_arr = arr.sqrt();                // Square root
+    Array cubed = arr.cbrt();                  // Cube root
+
+Rounding and Sign:
+    Array floor_arr = arr.floor();              // Floor
+    Array ceil_arr = arr.ceil();                // Ceiling
+    Array rounded = arr.round();                // Round
+    Array truncated = arr.trunc();              // Truncate
+    Array abs_arr = arr.abs();                 // Absolute value
+    Array sign_arr = arr.sign();                // Sign function
+
+Power Functions:
+    Array squared = arr.pow(2);                 // Raise to power
+    Array reciprocal = arr.reciprocal();        // 1/x
+    Array square = arr.square();                // x^2
+
+Other Functions:
+    Array clipped = arr.clip(0.0, 1.0);        // Clip values
+    Array heaveside = arr.heaviside(h1);       // Heaviside step
+
+================================================================================
+6. STATISTICAL OPERATIONS
+================================================================================
+
+Basic Statistics:
+    double sum_val = arr.sum();                // Sum of all elements
+    double mean_val = arr.mean();              // Mean value
+    double std_val = arr.std_dev();            // Standard deviation
+    double var_val = arr.var();                // Variance
+    double min_val = arr.min();                // Minimum
+    double max_val = arr.max();                // Maximum
+    double med_val = arr.median();             // Median
+    double percent = arr.percentile(0.95);     // Percentile
+
+Axis-wise Statistics:
+    Array mean_axis = arr.mean_along_axis(0);   // Mean along axis
+    Array sum_axis = arr.sum_along_axis(0);    // Sum along axis
+    Array min_axis = arr.min_along_axis(0);    // Min along axis
+    Array max_axis = arr.max_along_axis(0);    // Max along axis
+
+Finding Indices:
+    std::vector<size_t> max_indices = arr.argmax(); // Max indices
+    std::vector<size_t> min_indices = arr.argmin(); // Min indices
+    std::vector<size_t> non_zero = arr.nonzero();   // Non-zero indices
+
+Other:
+    std::vector<size_t> sorted_idx = arr.argsort(); // Sorted indices
+    Array sorted = arr.sort();                      // Sorted array
+
+================================================================================
+7. LINEAR ALGEBRA
+================================================================================
+
+Matrix Operations:
+    Array result = a.dot(b);                   // Dot product
+    Array result = a.matmul(b);                 // Matrix multiplication
+    Array transposed = a.transpose();          // Transpose
+    Array inverse = a.inv();                    // Inverse (2x2 only)
+    Array pseudo_inv = a.pinv();               // Pseudo-inverse
+    
+    double determinant = a.det();               // Determinant
+    size_t rank = a.rank();                    // Matrix rank
+
+Vector Operations:
+    Array cross_prod = vec1.cross(vec2);       // Cross product
+    Array outer_prod = vec1.outer(vec2);        // Outer product
+
+Matrix Decomposition:
+    auto [U, S, V] = arr.svd();                // SVD decomposition
+    auto [eigvals, eigvecs] = arr.eig();       // Eigendecomposition
+
+Matrix Properties:
+    std::vector<double> diag = arr.diag();     // Extract diagonal
+    Array trace_val = arr.trace();              // Trace
+    Array upper = arr.triu(0);                 // Upper triangular
+    Array lower = arr.tril(0);                  // Lower triangular
+
+Solving Linear Systems:
+    Array solution = A.solve(b);               // Solve Ax = b
+
+================================================================================
+8. ADVANCED FEATURES
+================================================================================
+
+Array Manipulation:
+    Array padded = arr.pad(pad_width, value);  // Add padding
+    Array sliced = arr.slice(ranges);          // Slice array
+    Array squeezed = arr.squeeze();            // Remove dimensions
+    Array expanded = arr.expand_dims(axis);     // Add dimensions
+    Array repeated = arr.repeat(n, axis);       // Repeat elements
+    Array tiled = arr.tile(reps);              // Tile array
+
+Conditional Operations:
+    Array result = arr.where(condition, other); // Conditional selection
+    Array result = arr.put_mask(mask, value);  // Put with mask
+    Array masked = arr.masked_where(mask);     // Mask array
+    bool all_true = arr.all();                 // All elements true
+    bool any_true = arr.any();                 // Any element true
+
+Splitting Arrays:
+    auto [arr1, arr2] = arr.split(axis, idx);  // Split array
+    std::vector<Array> vertical = arr.vsplit(n);  // Vertical split
+    std::vector<Array> horizontal = arr.hsplit(n); // Horizontal split
+
+Stacking Arrays:
+    Array stacked = Array::stack({arr1, arr2}, axis);
+    Array vertical_stack = Array::vstack({arr1, arr2});
+    Array horizontal_stack = Array::hstack({arr1, arr2});
+
+Data Conversion:
+    Array unique_vals = arr.unique();          // Unique values
+    auto [vals, counts] = arr.unique_with_counts();
+    std::vector<bool> nan_mask = arr.isnan();   // Check for NaN
+    std::vector<bool> inf_mask = arr.isinf();    // Check for Inf
+
+Signal Processing:
+    Array convolved = arr.convolve(kernel);     // Convolution
+    Array autocorr = arr.autocorr();            // Autocorrelation
+    Array crosscorr = arr.xcorr(other);         // Cross-correlation
+    Array moving_avg = arr.moving_average(5);   // Moving average
+
+Numerical Integration:
+    double area = trapz(y, x);                  // Trapezoidal integration
+    Array cumulative = cumtrapz(y, x);          // Cumulative integral
+
+Interpolation:
+    Array interpolated = interp(x_new, x, y);   // Linear interpolation
+
+Normalization:
+    Array normalized = arr.normalize(0, 1);     // Min-max normalization
+    Array standardized = arr.standardize();    // Z-score normalization
+
+================================================================================
+9. COMMON PATTERNS
+================================================================================
+
+Matrix-Vector Multiplication:
+    Array A = Array::eye(3);
+    Array x = Array::arange(1, 4, 1);
+    Array b = A.dot(x);
+
+Element-wise Operations:
+    Array A = Array::arange(1, 10, 1);
+    Array B = A + 1;                            // Add 1 to each
+    Array C = A * A;                            // Square each element
+
+Conditional Selection:
+    Array condition = A > 5;
+    Array result = A.where(condition, Array::zeros({size}));
+
+Find Maximum Element:
+    double max_val = arr.max();
+    std::vector<size_t> max_idx = arr.argmax();
+
+Create Grid:
+    auto [X, Y] = meshgrid(x_vec, y_vec);
+
+Correlation:
+    double correlation = arr1.corrcoef(arr2);
+
+================================================================================
+10. TIPS AND BEST PRACTICES
+================================================================================
+
+Performance:
+- Use reference when possible: const Array& arr
+- Prefer in-place operations (operator+= instead of operator+)
+- Initialize arrays with appropriate size to avoid reallocation
+- Use flatten() before iterating for 1D operations
+
+Memory Management:
+- Be aware that Array stores copies by default
+- Use copy() explicitly when you need a deep copy
+- Consider using pointers for large arrays
+
+Debugging:
+- Use print() and print_shape() to inspect arrays
+- Check shapes match before operations
+- Use allclose() to compare floating-point arrays
+
+Error Handling:
+- Wrap operations in try-catch blocks
+- Check shapes before operations
+- Validate input ranges for functions
+
+Optimization:
+- Compile with optimization: -O2 or -O3
+- Use -march=native for architecture-specific optimizations
+- Consider profiling your code
+
+================================================================================
+                              END OF GUIDE
+================================================================================
+
+
+
